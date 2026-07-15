@@ -1,0 +1,29 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Build
+dist/
+
+# Environment
+.env
+.env.*
+
+# Logs
+*.log
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python (for backend later)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Coverage
+coverage/
