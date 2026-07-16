@@ -20,8 +20,8 @@ export default function PropertyForm({ setResult }: Props) {
       setLoading(true);
 
       const response = await api.post<PropertyResponse>("/analyze", {
-        latitude,
-        longitude,
+        lat: Number(latitude),
+        lng: Number(longitude),
       });
 
       setResult(response.data);
