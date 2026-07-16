@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from mireye import analyze_property
+from mireye import fetch_property_data
+from scoring import calculate_property_score
 from pydantic import BaseModel
 
 app = FastAPI(title="PlotIQ API")
@@ -28,14 +29,11 @@ def home():
 @app.post("/analyze")
 def analyze(data: AnalyzeRequest):
 
-    lat = data.lat
-    lng = data.lng
+    mireye = fetch_property_data(
+        data.lat,
+        data.lng
+    )
 
-    return {
-        "success": True,
-        "property_score": 91,
-        "summary": "Excellent residential property with low flood risk.",
-        "terrain": "Flat",
-        "flood_risk": "Low",
-        "utilities": "Available",
-    }
+    result = calculate_property_score(mireye)
+
+    return result

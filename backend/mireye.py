@@ -4,27 +4,26 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-BASE_URL = os.getenv("MIREYE_BASE_URL")
-TOKEN = os.getenv("MIREYE_API_TOKEN")
+API_TOKEN = os.getenv("MIREYE_API_TOKEN")
+
+BASE_URL = "https://api.mireye.com/v1/fetch"
 
 
-def analyze_property(lat: float, lng: float):
-
-    url = f"{BASE_URL}/v1/fetch"
+def fetch_property_data(lat: float, lng: float):
 
     headers = {
-        "Authorization": f"Bearer {TOKEN}",
-        "Content-Type": "application/json"
+        "Authorization": f"Bearer {API_TOKEN}",
+        "Content-Type": "application/json",
     }
 
     payload = {
         "lat": lat,
         "lng": lng,
-        "preset": "site_selection"
+        "preset": "flood_risk"
     }
 
     response = requests.post(
-        url,
+        BASE_URL,
         headers=headers,
         json=payload,
         timeout=120

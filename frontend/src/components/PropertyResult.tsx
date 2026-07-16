@@ -1,61 +1,53 @@
-import { Button } from "./ui/button";
 import type { PropertyResponse } from "../types/property";
+
+import ScoreCard from "./ScoreCard";
+import RiskBadge from "./RiskBadge";
+import SummaryCard from "./SummaryCard";
+import SourceCard from "./SourceCard";
 
 interface Props {
   result: PropertyResponse;
-  onBack: () => void;
+  onReset: () => void;
 }
 
 export default function PropertyResult({
   result,
-  onBack,
+  onReset,
 }: Props) {
   return (
-    <section className="mx-auto max-w-4xl px-6 py-16">
+    <section className="mx-auto max-w-6xl space-y-8 px-6 py-16">
 
-      <Button
-        onClick={onBack}
+      <button
+        onClick={onReset}
+        className="rounded-lg bg-neutral-900 px-5 py-3 hover:bg-neutral-800"
       >
         ← Analyze Another Property
-      </Button>
+      </button>
 
-      <div className="mt-10 rounded-xl border border-neutral-800 p-8">
+      <ScoreCard score={result.property_score} />
 
-        <h1 className="text-4xl font-bold">
-          Property Score
-        </h1>
+      <div className="grid gap-5 md:grid-cols-3">
 
-        <h2 className="mt-6 text-6xl font-bold text-emerald-400">
-          {result.property_score}/100
-        </h2>
+        <RiskBadge
+          title="Terrain"
+          value={result.terrain}
+        />
 
-        <div className="mt-10 space-y-3">
+        <RiskBadge
+          title="Flood Risk"
+          value={result.flood_risk}
+        />
 
-          <p>
-            <strong>Terrain:</strong> {result.terrain}
-          </p>
-
-          <p>
-            <strong>Flood Risk:</strong> {result.flood_risk}
-          </p>
-
-          <p>
-            <strong>Utilities:</strong> {result.utilities}
-          </p>
-
-        </div>
-
-        <div className="mt-8 rounded-lg bg-neutral-900 p-6">
-
-          <h3 className="mb-3 text-lg font-semibold">
-            AI Summary
-          </h3>
-
-          <p>{result.summary}</p>
-
-        </div>
+        <RiskBadge
+          title="Utilities"
+          value={result.utilities}
+        />
 
       </div>
+
+      <SummaryCard summary={result.summary} />
+
+      <SourceCard />
 
     </section>
   );
