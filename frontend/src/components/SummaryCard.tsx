@@ -1,23 +1,26 @@
 import { Sparkles } from "lucide-react";
 
-interface Props {
+interface SummaryCardProps {
   summary: string;
 }
 
 export default function SummaryCard({
   summary,
-}: Props) {
+}: SummaryCardProps) {
   return (
-    <div className="rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
+    <div className="rounded-3xl bg-neutral-900 p-8">
 
-      <div className="mb-4 flex items-center gap-3">
+      <div className="mb-6 flex items-center gap-3">
+
         <Sparkles className="text-emerald-400" />
-        <h3 className="text-xl font-bold">
+
+        <h2 className="text-3xl font-bold">
           AI Summary
-        </h3>
+        </h2>
+
       </div>
 
-      <p className="leading-8 text-neutral-300">
+      <p className="text-lg leading-9 text-neutral-300">
         {summary}
       </p>
 

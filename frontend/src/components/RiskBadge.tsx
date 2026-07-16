@@ -1,4 +1,4 @@
-interface Props {
+interface RiskBadgeProps {
   title: string;
   value: string;
 }
@@ -6,30 +6,33 @@ interface Props {
 export default function RiskBadge({
   title,
   value,
-}: Props) {
-  let bg = "bg-neutral-800";
-  let text = "text-white";
+}: RiskBadgeProps) {
 
-  if (value.toLowerCase().includes("low")) {
-    bg = "bg-emerald-500/20";
-    text = "text-emerald-400";
-  }
+  const getColor = () => {
 
-  if (value.toLowerCase().includes("high")) {
-    bg = "bg-red-500/20";
-    text = "text-red-400";
-  }
+    if (
+      value.toLowerCase().includes("high")
+    )
+      return "text-red-400";
+
+    if (
+      value.toLowerCase().includes("medium")
+    )
+      return "text-yellow-400";
+
+    return "text-emerald-400";
+  };
 
   return (
-    <div className={`rounded-xl ${bg} p-5`}>
+    <div className="rounded-2xl bg-neutral-800 p-6">
 
-      <p className="text-sm text-neutral-400">
+      <p className="mb-3 text-neutral-400">
         {title}
       </p>
 
-      <p className={`mt-2 text-lg font-bold ${text}`}>
+      <h3 className={`text-3xl font-bold ${getColor()}`}>
         {value}
-      </p>
+      </h3>
 
     </div>
   );

@@ -1,47 +1,63 @@
 import {
-  Database,
   ShieldCheck,
-  Globe,
+  Database,
 } from "lucide-react";
 
-export default function SourceCard() {
-  const sources = [
-    "USGS",
-    "NOAA",
-    "FEMA",
-    "USFWS",
+interface Props {
+  sources: any;
+}
+
+export default function SourceCard({
+  sources,
+}: Props) {
+
+  const uniqueSources = [
+    ...new Map(
+      Object.values(sources).map(
+        (item: any) => [item.source, item]
+      )
+    ).values(),
   ];
 
   return (
-    <div className="rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
+    <div className="rounded-3xl bg-neutral-900 p-8">
 
-      <div className="mb-5 flex items-center gap-3">
+      <div className="mb-8 flex items-center gap-3">
+
         <Database className="text-emerald-400" />
 
-        <h3 className="text-xl font-bold">
+        <h2 className="text-3xl font-bold">
           Trusted Data Sources
-        </h3>
+        </h2>
+
       </div>
 
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
 
-        {sources.map((source) => (
+        {uniqueSources.map((source: any) => (
+
           <div
-            key={source}
-            className="rounded-xl bg-neutral-800 p-4 text-center"
+            key={source.source}
+            className="rounded-2xl bg-neutral-800 p-6 text-center"
           >
-            <ShieldCheck className="mx-auto mb-2 text-emerald-400" />
 
-            <p>{source}</p>
+            <ShieldCheck
+              className="mx-auto mb-4 text-emerald-400"
+            />
+
+            <p className="font-semibold">
+              {source.source}
+            </p>
+
           </div>
+
         ))}
 
       </div>
 
-      <div className="mt-6 flex items-center gap-2 text-sm text-neutral-500">
-        <Globe size={16} />
-        Data powered by Mireye Earth
-      </div>
+      <p className="mt-8 text-neutral-500">
+        🌍 Data powered by Mireye Earth
+      </p>
 
     </div>
   );

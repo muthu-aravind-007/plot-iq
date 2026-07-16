@@ -3,6 +3,8 @@ import type { PropertyResponse } from "../types/property";
 import ScoreCard from "./ScoreCard";
 import RiskBadge from "./RiskBadge";
 import SummaryCard from "./SummaryCard";
+import RecommendationCard from "./RecommendationCard";
+import InvestmentCard from "./InvestmentCard";
 import SourceCard from "./SourceCard";
 
 interface Props {
@@ -19,13 +21,18 @@ export default function PropertyResult({
 
       <button
         onClick={onReset}
-        className="rounded-lg bg-neutral-900 px-5 py-3 hover:bg-neutral-800"
+        className="rounded-lg bg-neutral-900 px-5 py-3 transition hover:bg-neutral-800"
       >
         ← Analyze Another Property
       </button>
 
-      <ScoreCard score={result.property_score} />
+      {/* Score */}
+      <ScoreCard
+        score={result.property_score}
+        grade={result.grade}
+      />
 
+      {/* Risk Cards */}
       <div className="grid gap-5 md:grid-cols-3">
 
         <RiskBadge
@@ -45,9 +52,25 @@ export default function PropertyResult({
 
       </div>
 
-      <SummaryCard summary={result.summary} />
+      {/* AI Summary */}
+      <SummaryCard
+        summary={result.summary}
+      />
 
-      <SourceCard />
+      {/* Investment */}
+      <InvestmentCard
+        score={result.property_score}
+      />
+
+      {/* Recommendations */}
+      <RecommendationCard
+        recommendations={result.recommendations}
+      />
+
+      {/* Sources */}
+      <SourceCard
+        sources={result.sources}
+      />
 
     </section>
   );
