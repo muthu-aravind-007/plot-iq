@@ -1,4 +1,7 @@
 fastapi
-uvicorn
-requests
+uvicorn[standard]
 python-dotenv
+requests
+reportlab
+pydantic
+python-multipart
