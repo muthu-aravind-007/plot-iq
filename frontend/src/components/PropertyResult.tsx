@@ -7,6 +7,12 @@ import RecommendationCard from "./RecommendationCard";
 import InvestmentCard from "./InvestmentCard";
 import SourceCard from "./SourceCard";
 
+import PropertyMap from "./PropertyMap";
+import PropertyFactsCard from "./PropertyFactsCard";
+import EnvironmentCard from "./EnvironmentCard";
+import ScoreBreakdownCard from "./ScoreBreakdownCard";
+import DownloadReport from "./DownloadReport";
+
 interface Props {
   result: PropertyResponse;
   onReset: () => void;
@@ -17,7 +23,9 @@ export default function PropertyResult({
   onReset,
 }: Props) {
   return (
-    <section className="mx-auto max-w-6xl space-y-8 px-6 py-16">
+    <section className="mx-auto max-w-7xl space-y-8 px-6 py-16">
+
+      {/* Back Button */}
 
       <button
         onClick={onReset}
@@ -27,12 +35,21 @@ export default function PropertyResult({
       </button>
 
       {/* Score */}
+
       <ScoreCard
         score={result.property_score}
         grade={result.grade}
       />
 
+      {/* Property Map */}
+
+      <PropertyMap
+        lat={result.property.lat}
+        lng={result.property.lng}
+      />
+
       {/* Risk Cards */}
+
       <div className="grid gap-5 md:grid-cols-3">
 
         <RiskBadge
@@ -52,25 +69,54 @@ export default function PropertyResult({
 
       </div>
 
-      {/* AI Summary */}
-      <SummaryCard
-        summary={result.summary}
+      {/* Facts + Environment */}
+
+      <div className="grid gap-6 lg:grid-cols-2">
+
+        <PropertyFactsCard
+          property={result.property}
+        />
+
+        <EnvironmentCard
+          property={result.property}
+        />
+
+      </div>
+
+      {/* Score Breakdown */}
+
+      <ScoreBreakdownCard
+        score={result.property_score}
+        breakdown={result.breakdown}
       />
 
       {/* Investment */}
+
       <InvestmentCard
         score={result.property_score}
       />
 
+      {/* Summary */}
+
+      <SummaryCard
+        summary={result.summary}
+      />
+
       {/* Recommendations */}
+
       <RecommendationCard
         recommendations={result.recommendations}
       />
 
       {/* Sources */}
+
       <SourceCard
         sources={result.sources}
       />
+
+      {/* PDF */}
+
+      <DownloadReport />
 
     </section>
   );

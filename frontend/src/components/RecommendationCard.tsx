@@ -3,19 +3,15 @@ import {
   XCircle,
 } from "lucide-react";
 
-interface RecommendationProps {
+import type { Recommendation } from "../types/property";
 
-  recommendations: {
-    pros: string[];
-    cons: string[];
-    recommendation: string;
-  };
+interface RecommendationProps {
+  recommendations: Recommendation;
 }
 
 export default function RecommendationCard({
   recommendations,
 }: RecommendationProps) {
-
   return (
     <div className="rounded-3xl bg-neutral-900 p-8">
 
@@ -34,19 +30,13 @@ export default function RecommendationCard({
           <div className="space-y-4">
 
             {recommendations.pros.map((pro) => (
-
               <div
                 key={pro}
                 className="flex gap-3"
               >
-                <CheckCircle
-                  className="mt-1 text-emerald-400"
-                />
-
+                <CheckCircle className="mt-1 text-emerald-400" />
                 <p>{pro}</p>
-
               </div>
-
             ))}
 
           </div>
@@ -62,20 +52,13 @@ export default function RecommendationCard({
           <div className="space-y-4">
 
             {recommendations.cons.map((con) => (
-
               <div
                 key={con}
                 className="flex gap-3"
               >
-
-                <XCircle
-                  className="mt-1 text-red-400"
-                />
-
+                <XCircle className="mt-1 text-red-400" />
                 <p>{con}</p>
-
               </div>
-
             ))}
 
           </div>
@@ -91,7 +74,7 @@ export default function RecommendationCard({
         </h3>
 
         <p>
-          {recommendations.recommendation}
+          {recommendations.final}
         </p>
 
       </div>

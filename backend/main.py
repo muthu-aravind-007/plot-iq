@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
 from services.mireye import fetch_property_data
@@ -9,6 +10,7 @@ from services.report import (
     generate_summary,
     generate_recommendations,
 )
+from services.pdf import generate_pdf
 
 app = FastAPI(title="PlotIQ API")
 
@@ -16,6 +18,10 @@ app = FastAPI(title="PlotIQ API")
 class AnalyzeRequest(BaseModel):
     lat: float
     lng: float
+
+
+# Stores the latest analyzed report
+latest_report = None
 
 
 app.add_middleware(
@@ -37,33 +43,47 @@ def home():
 @app.post("/analyze")
 def analyze(data: AnalyzeRequest):
 
-    # Step 1
+    global latest_report
+
+    # -------------------------------
+    # Step 1 - Fetch Mireye data
+    # -------------------------------
     mireye = fetch_property_data(
         data.lat,
-        data.lng
+        data.lng,
     )
 
-    # Step 2
+    # -------------------------------
+    # Step 2 - Extract useful values
+    # -------------------------------
     analysis = analyze_property(mireye)
 
-    # Step 3
+    # -------------------------------
+    # Step 3 - Calculate score
+    # -------------------------------
     score = calculate_property_score(analysis)
 
-    # Step 4
+    # -------------------------------
+    # Step 4 - Generate AI Report
+    # -------------------------------
     summary = generate_summary(
         analysis,
-        score
+        score["grade"],
+        score["flood_risk"],
     )
 
-    # Step 5
     recommendations = generate_recommendations(
-        analysis
+        analysis,
+        score["grade"],
     )
 
-    return {
+    # -------------------------------
+    # Final API response
+    # -------------------------------
+    response = {
         "success": True,
 
-        "property_score": score["score"],
+        "property_score": score["property_score"],
 
         "grade": score["grade"],
 
@@ -79,5 +99,31 @@ def analyze(data: AnalyzeRequest):
 
         "breakdown": score["breakdown"],
 
+        "property": analysis,
+
         "sources": mireye["fields"],
     }
+
+    # Save latest report for PDF generation
+    latest_report = response
+
+    return response
+
+
+@app.get("/report/pdf")
+def download_pdf():
+
+    global latest_report
+
+    if latest_report is None:
+        return {
+            "message": "Analyze a property first."
+        }
+
+    filename = generate_pdf(latest_report)
+
+    return FileResponse(
+        path=filename,
+        filename="PlotIQ_Report.pdf",
+        media_type="application/pdf",
+    )

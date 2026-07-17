@@ -1,7 +1,23 @@
 export interface Recommendation {
   pros: string[];
   cons: string[];
-  recommendation: string;
+  final: string;
+}
+
+export interface PropertyData {
+  lat: number;
+  lng: number;
+  elevation: number;
+  coast_distance: number;
+  floodplain: boolean;
+  wetland: boolean;
+}
+
+export interface Breakdown {
+  floodplain: number;
+  wetlands: number;
+  elevation: number;
+  coast: number;
 }
 
 export interface PropertyResponse {
@@ -21,7 +37,9 @@ export interface PropertyResponse {
 
   recommendations: Recommendation;
 
-  breakdown: [string, number][];
+  breakdown: Breakdown;
+
+  property: PropertyData;
 
   sources: Record<string, any>;
 }

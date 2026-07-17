@@ -2,90 +2,80 @@ def calculate_property_score(data: dict):
 
     score = 100
 
-    breakdown = []
-
-    # Floodplain
-    if data["floodplain"]:
-        score -= 30
-        breakdown.append(("Floodplain", -30))
-    else:
-        breakdown.append(("Floodplain", 0))
-
-    # Wetlands
-    if data["wetland"]:
-        score -= 20
-        breakdown.append(("Wetland", -20))
-    else:
-        breakdown.append(("Wetland", 0))
-
-    # Elevation
-
     elevation = data["elevation"]
-
-    if elevation < 5:
-        score -= 20
-        breakdown.append(("Low Elevation", -20))
-
-    elif elevation < 15:
-        score -= 10
-        breakdown.append(("Medium Elevation", -10))
-
-    else:
-        breakdown.append(("Elevation", 0))
-
-    # Coast
-
     coast = data["coast_distance"]
 
-    if coast < 500:
-        score -= 15
-        breakdown.append(("Near Coast", -15))
+    # ---------------- Floodplain ----------------
 
-    elif coast < 1000:
-        score -= 5
-        breakdown.append(("Coast Distance", -5))
+    flood_penalty = 30 if data["floodplain"] else 0
+    score -= flood_penalty
 
+    # ---------------- Wetlands ----------------
+
+    wetland_penalty = 20 if data["wetland"] else 0
+    score -= wetland_penalty
+
+    # ---------------- Elevation ----------------
+
+    if elevation < 5:
+        elevation_penalty = 20
+    elif elevation < 15:
+        elevation_penalty = 10
     else:
-        breakdown.append(("Coast Distance", 0))
+        elevation_penalty = 0
+
+    score -= elevation_penalty
+
+    # ---------------- Coast ----------------
+
+    if coast < 500:
+        coast_penalty = 15
+    elif coast < 1000:
+        coast_penalty = 5
+    else:
+        coast_penalty = 0
+
+    score -= coast_penalty
 
     score = max(score, 0)
 
-    # ------------------------
+    # ---------------- Grade ----------------
 
     if score >= 90:
         grade = "Excellent"
-
-    elif score >= 75:
+    elif score >= 80:
+        grade = "Very Good"
+    elif score >= 70:
         grade = "Good"
-
     elif score >= 60:
-        grade = "Average"
-
+        grade = "Fair"
     else:
         grade = "Poor"
 
-    flood = (
-        "High"
-        if data["floodplain"]
-        else "Medium"
-        if elevation < 10
-        else "Low"
-    )
+    # ---------------- Flood Risk ----------------
+
+    if data["floodplain"]:
+        flood = "High"
+    elif elevation < 10:
+        flood = "Medium"
+    else:
+        flood = "Low"
 
     terrain = "Flat"
-
     utilities = "Likely Available"
 
+    breakdown = {
+        "floodplain": flood_penalty,
+        "wetlands": wetland_penalty,
+        "elevation": elevation_penalty,
+        "coast": coast_penalty,
+    }
+
     return {
-        "score": score,
-
+        "property_score": score,
         "grade": grade,
-
         "terrain": terrain,
-
         "flood_risk": flood,
-
         "utilities": utilities,
-
         "breakdown": breakdown,
     }
