@@ -32,7 +32,7 @@ export default function RecommendationCard({
         <div>
 
           <h2 className="text-3xl font-bold">
-            AI Recommendations
+            Investment Recommendations
           </h2>
 
           <p className="mt-1 text-neutral-400">

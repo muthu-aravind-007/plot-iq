@@ -62,7 +62,7 @@ export default function DownloadReport() {
 
         <Feature text="Environmental Analysis" />
 
-        <Feature text="AI Recommendations" />
+        <Feature text="Investment Recommendations" />
 
       </div>
 
@@ -94,8 +94,7 @@ export default function DownloadReport() {
         />
 
         <p className="text-sm text-neutral-400">
-          Generated using PlotIQ and Mireye Earth with verified
-          geospatial datasets.
+          Generated using Mireye geospatial intelligence and environmental datasets.
         </p>
 
       </div>

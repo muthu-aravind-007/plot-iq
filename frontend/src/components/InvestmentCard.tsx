@@ -96,7 +96,7 @@ export default function InvestmentCard({
           </h2>
 
           <p className="text-neutral-400">
-            AI-generated investment outlook
+            Investment Outlook
           </p>
 
         </div>
@@ -179,7 +179,7 @@ export default function InvestmentCard({
           />
 
           <span className="font-semibold">
-            AI Confidence
+            Analysis Confidence
           </span>
 
         </div>

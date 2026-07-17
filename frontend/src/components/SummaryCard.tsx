@@ -38,7 +38,7 @@ export default function SummaryCard({
             <div>
 
               <h2 className="text-3xl font-bold">
-                AI Executive Summary
+                Executive Summary
               </h2>
 
               <p className="mt-1 text-neutral-400">
@@ -57,7 +57,7 @@ export default function SummaryCard({
             />
 
             <span className="text-sm font-medium text-emerald-300">
-              AI Generated
+              Automated Analysis
             </span>
 
           </div>
@@ -88,7 +88,7 @@ export default function SummaryCard({
             <div>
 
               <h3 className="font-semibold">
-                AI Assessment Complete
+                Assessment Complete
               </h3>
 
               <p className="text-sm text-neutral-400">
