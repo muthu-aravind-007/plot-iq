@@ -59,7 +59,7 @@ export default function PropertyForm({
 
             <Sparkles size={16} />
 
-            AI Powered Property Intelligence
+            Mireye Powered Property Intelligence
 
           </div>
 
