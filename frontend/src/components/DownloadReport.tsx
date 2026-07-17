@@ -69,7 +69,7 @@ export default function DownloadReport() {
       {/* Download Button */}
 
       <a
-        href="http://127.0.0.1:8000/report/pdf"
+        href="https://plot-iq-y546.onrender.com/report/pdf"
         target="_blank"
         rel="noreferrer"
         className="group mt-10 flex items-center justify-center gap-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-cyan-500 px-8 py-5 text-lg font-bold text-black transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-500/25"
