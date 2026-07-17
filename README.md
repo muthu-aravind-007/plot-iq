@@ -6,6 +6,16 @@ PlotIQ helps investors, developers, and homebuyers evaluate land using geospatia
 
 ---
 
+## Live Demo
+
+🌐 Frontend: https://plot-iq-azure.vercel.app
+
+⚡ Backend API: https://plot-iq-y546.onrender.com
+
+📄 API Documentation: https://plot-iq-y546.onrender.com/docs
+
+---
+
 ## Features
 
 - Property Investment Score
@@ -38,59 +48,8 @@ PlotIQ helps investors, developers, and homebuyers evaluate land using geospatia
 - ReportLab
 - Mireye Earth API
 
----
-
-## Project Structure
-
-frontend/
-backend/
-
----
-
-## Installation
-
-### Backend
-
-```bash
-cd backend
-
-pip install -r requirements.txt
-
-python -m uvicorn main:app --reload
-```
-
-### Frontend
-
-```bash
-cd frontend
-
-npm install
-
-npm run dev
-```
-
----
-
-## Environment Variables
-
-Create a `.env` file inside the backend folder.
-
-```env
-MIREYE_API_KEY=your_api_key
-```
-
----
-
-## Built With
-
-- Mireye Earth API
-- OpenStreetMap
-- FastAPI
-- React
-- TailwindCSS
-
----
+...
 
 ## Author
 
-A. Muthu Aravind
+**A. Muthu Aravind**
